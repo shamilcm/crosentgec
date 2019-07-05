@@ -32,11 +32,13 @@ For training NUS_3 ConvS2S models:
 
 ## Decoding using pre-trained cross-sentence GEC models
 
-1. Download all pre-requiste components (BPE model, dictionary files, embeddings, and pre-trained decoder)  using the `download.sh`
+1. Run `prepare_test.sh` to prepare the test datasets.
 
-2. Download CroSent models using `download_pretrained_crosent.sh` script.
+2. Download all pre-requiste components (BPE model, dictionary files, embeddings, and pre-trained decoder)  using the `download.sh`
 
-3. Decode development/test sets with decode.sh
+3. Download CroSent models using `download_pretrained_crosent.sh` script.
+
+4. Decode development/test sets with decode.sh
 
 ```
 ./decode.sh $testset $modelpath $dictdir $optionalgpu
@@ -49,7 +51,7 @@ For training NUS_3 ConvS2S models:
 
 `$optionalgpu` is an optional parameter indicating GPU id to run the decoding on (default=0).
 
-4. Run rearnker using the downloaded weights:
+5. Run rearnker using the downloaded weights:
 ```
 ./reranker_run.sh $outputsdir $testset $weightsfile $optionalgpu
 ```
@@ -59,7 +61,7 @@ where $outputsdir is the directory which contains the output of the decoding and
 
 ### Data preparation
 
-Download the required datasets and run `prepare_data.sh` prepare the datasets.
+Download the required datasets and run `prepare_data.sh` with the paths to Lang-8 and NUCLE to prepare the datasets.
 
 ### Training
 
