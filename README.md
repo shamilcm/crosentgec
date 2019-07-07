@@ -25,10 +25,10 @@ Training Baseline and CroSent models:
 
 Training, and running rescorer:
 * Python 2.7
-* Mosesdecoder
+* Moses v3
 
 For training NUS3 models:
-  - fast_align, moses: for computing word alignments for edit weighted log likelihood loss
+  - Fast_align, Moses: for computing word alignments for edit weighted log likelihood loss
 
 ## Decoding using pre-trained cross-sentence GEC models
 
