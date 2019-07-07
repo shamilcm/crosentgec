@@ -19,7 +19,7 @@ Data Processing:
 * Python 2.7
 * To generate exactly the excat same data with same tokenization, you may require NLTK v2.0b7 and LangID.py v1.1.6.
 
-Training Convolutional Seq2Seq and CroSent models:
+Training Baseline and CroSent models:
 * Python 3.6
 * PyTorch 0.4.1
 
@@ -27,18 +27,18 @@ Training, and running rescorer:
 * Python 2.7
 * Mosesdecoder
 
-For training NUS_3 ConvS2S models:
-  - fast_align: for computing word alignments for edit weighted log likelihood loss
+For training NUS3 models:
+  - fast_align, moses: for computing word alignments for edit weighted log likelihood loss
 
 ## Decoding using pre-trained cross-sentence GEC models
 
 1. Run `prepare_test.sh` to prepare the test datasets.
 
-2. Download all pre-requiste components (BPE model, dictionary files, embeddings, and pre-trained decoder)  using the `download.sh`
+2. Download all pre-requiste components (BPE model, embeddings, and pre-trained decoder)  using the `download.sh`
 
-3. Download CroSent models using `download_pretrained_crosent.sh` script.
+3. Download CroSent models and dictionaries using `download_pretrained_crosent.sh` script.
 
-4. Decode development/test sets with decode.sh
+4. Decode development/test sets with `decode.sh`.
 
 ```
 ./decode.sh $testset $modelpath $dictdir $optionalgpu
@@ -55,7 +55,7 @@ For training NUS_3 ConvS2S models:
 ```
 ./reranker_run.sh $outputsdir $testset $weightsfile $optionalgpu
 ```
-where $outputsdir is the directory which contains the output of the decoding and $weightsfile is the paths to trained weights (in the case of pretrained weights, it is `models/reranker_weights/weights.nucle_dev.txt`)
+where `$outputsdir` is the directory which contains the output of the decoding and `$weightsfile` is the paths to trained weights (in the case of pretrained weights, it is `models/reranker_weights/weights.nucle_dev.txt`)
 
 ## Training from scratch
 
@@ -67,7 +67,7 @@ Download the required datasets and run `prepare_data.sh` with the paths to Lang-
 
 Download all pre-requiste components (BPE model, dictionary files, embeddings, and pre-trained decoder)  using the `download.sh`
 
-Each training script has a parameter to specify the seed value as the parameter to the script. To train 4 different models, run the script 4 times by variying the seed values (e.g., 1, 2, 3, 4)
+Each training script `train_*.sh` has a parameter to specify the random seed value. To train 4 different models, run the training script 4 times by variying the seed values (e.g., 1, 2, 3, 4)
 
 For training the baseline models use `train_baseline.sh` script.
 
@@ -76,12 +76,12 @@ For training the crosent models, use `train_crosent.sh` script.
 For training the NUS2 model, use `train_nus2.sh` script.
 
 For training the NUS3 model
-1. Generate alignments using fastalign (Requires fast_align and modes under tools/ directory), run `create_alignment.py data/processed`
+1. Generate alignments using fastalign (Requires `fast_align` and `moses` under `tools/` directory), run `create_alignment.py data/processed`
 2. Run `train_nus3.sh` script.
 
 For training the reranker:
 
-1. Decode development dataset using `./decode.sh` (steps mentioned earlier). Set $outputsdir to the output directory of this decoding step.
+1. Decode development dataset using `./decode.sh` (steps mentioned earlier). Set `$outputsdir` to the output directory of this decoding step.
 
 2. Run `./reranker_train.sh $outputsdir $devset $optionalgpu`
 
